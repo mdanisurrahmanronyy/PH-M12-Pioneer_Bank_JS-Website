@@ -107,13 +107,13 @@
             return amountNumber;
         }
 
-        function updateSpanText(id, depositNumber){
+        function updateSpanText(id, addedNumber){
             // getting the current amount from div box
             const current = document.getElementById(id).innerText;
             const currentNumber = parseFloat(current);
 
             //adding values
-            const totalAmount = depositNumber + currentNumber;
+            const totalAmount = addedNumber + currentNumber;
             
             //setting the current amount text in div box
             document.getElementById(id).innerText = totalAmount;
