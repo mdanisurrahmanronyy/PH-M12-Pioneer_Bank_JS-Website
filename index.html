@@ -22,10 +22,50 @@
     </div>
 
     <div id="transaction-area">
-        <h1>Hello</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="deposit status">
+                    <h5>Deposit</h5>
+                    <h2>$ <span id="current-deposit">00</span></h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="withdraw status">
+                    <h5>Withdraw</h5>
+                    <h2>$ <span id="current-withdraw">00</span></h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="balance status">
+                    <h5>Balance</h5>
+                    <h2>$ <span id="current-balance">1240</span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="submit-area">
+                    <h4>Deposit</h4>
+                    <input id="deposit-amount" class="form-control" type="text" placeholder="$ amount you want to deposit">
+                    <br>
+                    <button id="add-deposit" class="btn btn-success">Deposit</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+               <div class="submit-area">
+                    <h4>Withdraw</h4>
+                    <input id="withdraw-amount" class="form-control" type="text" placeholder="$ amount you want to withdraw">
+                    <br>
+                    <button id="add-withdraw" class="btn btn-success">Withdraw</button>
+               </div>
+            </div>
+        </div>
+    
     </div>
 
+    
     <script>
+        // login button event handler
         const loginBtn = document.getElementById("login");
         loginBtn.addEventListener("click", function(){
             const loginArea = document.getElementById("login-area");
@@ -34,6 +74,52 @@
             const transactionArea = document.getElementById("transaction-area");
             transactionArea.style.display = "block";
         });
+
+        // deposit button event handler
+        const depositBtn = document.getElementById("add-deposit");
+        depositBtn.addEventListener("click", function(){
+            // getting the deposit amount value from input box
+            const depositNumber = getInputNumber("deposit-amount");
+
+            updateSpanText("current-deposit", depositNumber);
+            updateSpanText("current-balance", depositNumber);
+
+            //after addition setting the deposit input box empty
+            document.getElementById("deposit-amount").value = "";
+        });
+
+        // withdraw button event handler
+        const withdrawBtn = document.getElementById("add-withdraw");
+        withdrawBtn.addEventListener("click", function(){
+            // getting the withdraw amount value from input box
+            const withdrawNumber = getInputNumber("withdraw-amount");
+            
+            updateSpanText("current-withdraw", withdrawNumber);
+            updateSpanText("current-balance", -1 * withdrawNumber);
+
+            document.getElementById("withdraw-amount").value = "";
+            
+        });
+
+        function getInputNumber(id){
+            const amount = document.getElementById(id).value;
+            const amountNumber = parseFloat(amount);
+            return amountNumber;
+        }
+
+        function updateSpanText(id, depositNumber){
+            // getting the current amount from div box
+            const current = document.getElementById(id).innerText;
+            const currentNumber = parseFloat(current);
+
+            //adding values
+            const totalAmount = depositNumber + currentNumber;
+            
+            //setting the current amount text in div box
+            document.getElementById(id).innerText = totalAmount;
+        }
+
+
     </script>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
